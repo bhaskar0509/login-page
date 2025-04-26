@@ -1,0 +1,110 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and borders are included in element width */
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /* Disable scrolling */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     /* Adds gap at the top and bottom */
+    background: url('love.jpg') no-repeat center center/cover;
+}
+
+/* Register Form Styling */
+.register {
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent white background */
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%; /* Ensures the form doesn't exceed the max-width */
+    text-align: center;
+    box-sizing: border-box; /* Ensures padding stays inside the box */
+    overflow: hidden; /* Prevents content from overflowing the box */
+}
+
+.register h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Input Fields Styling */
+.register label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+.register input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Ensures padding stays within the input field */
+}
+
+.register input:focus {
+    border-color: #ff6363;
+    outline: none;
+}
+
+/* Button Styling */
+.register button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    background-color: #ff6363;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register button:hover {
+    background-color: #ff4747;
+}
+
+/* Login Link Styling */
+.register p {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+.register a {
+    color: #ff6363;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.register a:hover {
+    color: #ff4747;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+

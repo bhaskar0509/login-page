@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!--=============== REMIX ICONS ===============-->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remix icon.css">
+
+      <!--=============== CSS ===============-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+      <title>Animated login form</title>
+       <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+  <!-- Add icons -->
+       <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+       <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-512x512.png') }}">
+
+   </head>
+   <body>
+    <!-- Flash Message -->
+    {% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+      <div class="login">
+         <img src="{{ url_for('static', filename='love.jpg') }}" alt="login image" class="login__img">
+
+
+        <form action="/login" method="POST" class="container" id="loginForm">
+            <h1 class="login__title">Get Started</h1>
+
+            <div class="login__content">
+               <div class="login__box">
+                  <i class="ri-user-3-line login__icon"></i>
+
+                  <div class="login__box-input">
+                     <input type="email" name="email" required class="login__input" id="login-email" placeholder=" ">
+                     <label for="login-email" class="login__label">Email</label>
+                  </div>
+               </div>
+
+               <div class="login__box">
+                  <i class="ri-lock-2-line login__icon"></i>
+
+                  <div class="login__box-input">
+                     <input type="password" name="password" required class="login__input" id="login-pass" placeholder=" ">
+                     <label for="login-pass" class="login__label">Password</label>
+                     <i class="ri-eye-off-line login__eye" id="login-eye" onclick="togglePasswordVisibility()"></i>
+                  </div>
+               </div>
+            </div>
+
+            <div class="login__check">
+               <div class="login__check-group">
+                  <input type="checkbox" class="login__check-input" id="login-check">
+                  <label for="login-check" class="login__check-label">Remember me</label>
+               </div>
+
+               <a href="#" class="login__forgot">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login__button">Login</button>
+
+            <p class="login__register">
+               Don't have an account? <a href="{{ url_for('register') }}">Register</a>
+            </p>
+         </form>
+      </div>
+      <script>
+         // Toggle password visibility
+         function togglePasswordVisibility() {
+             const passwordField = document.getElementById('login-pass');
+             const eyeIcon = document.getElementById('login-eye');
+ 
+             if (passwordField.type === 'password') {
+                 passwordField.type = 'text';
+                 eyeIcon.classList.remove('ri-eye-off-line');
+                 eyeIcon.classList.add('ri-eye-line');
+             } else {
+                 passwordField.type = 'password';
+                 eyeIcon.classList.remove('ri-eye-line');
+                 eyeIcon.classList.add('ri-eye-off-line');
+             }
+         }
+ 
+         // Form validation
+         const loginForm = document.getElementById('loginForm');
+         loginForm.addEventListener('submit', function (event) {
+             const email = document.getElementById('login-email').value;
+             const password = document.getElementById('login-pass').value;
+ 
+             // Basic validation
+             if (email === '' || password === '') {
+                 event.preventDefault();
+                 alert('Please fill out all fields');
+             } else {
+                 alert('Form submitted successfully');
+             }
+         });
+     </script>
+     <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/static/service-worker.js")
+        .then(registration => {
+          console.log("Service Worker registered with scope:", registration.scope);
+        })
+        .catch(error => {
+          console.error("Service Worker registration failed:", error);
+        });
+    }
+  </script>
+   </body>
+</html>

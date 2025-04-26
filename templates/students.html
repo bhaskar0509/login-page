@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Hide the print button and Actions column when printing */
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .actions-column {
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        // Function to trigger the print dialog
+        function printPage() {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Registered Students</h2>
+        <table class="table table-bordered table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Rollno.</th>
+                    <th class="actions-column">Actions</th> <!-- Add a class to the Actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.rollno }}</td>
+                    <td class="actions-column">
+                        <!-- Delete Button Form -->
+                        <form action="{{ url_for('delete_student', roll=student.rollno) }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this student?');" class="btn btn-danger btn-sm">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Buttons to go back and print, hidden during print -->
+        <div class="text-center mt-4 no-print">
+            <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">Back to Home</a>
+            <button class="btn btn-success ml-2 mt-3" onclick="printPage()">Print Student details</button>
+        </div>
+    </div>
+</body>
+</html>
