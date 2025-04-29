@@ -20,7 +20,7 @@ app.secret_key = 'xyzsdfg'
 app.config['MYSQL_USER'] ='root'
 app.config ['MYSQL_PASSWORD'] ='NayaPassword'
 app.config['MYSQL_DB'] ='attendance_system'
-app.config['MYSQL_HOST'] = '127.0.0.1'
+app.config['MYSQL_HOST'] = 'localhost'
 
 
 
@@ -502,4 +502,4 @@ def manifest():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
