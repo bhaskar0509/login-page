@@ -39,7 +39,6 @@ pydantic_core==2.33.1
 PyMySQL==1.1.1
 pypiwin32==223
 pyttsx3==2.98
-pywin32==310
 requests==2.32.3
 scikit-learn==1.6.1
 scipy==1.15.2
