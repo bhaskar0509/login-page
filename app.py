@@ -5,8 +5,6 @@ from datetime import date,datetime, timedelta
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 import joblib
-import pymysql
-pymysql.install_as_MySQLdb()
 from flask_mysqldb import MySQL
 import mysql.connector
 import MySQLdb
@@ -22,7 +20,7 @@ app.secret_key = 'xyzsdfg'
 app.config['MYSQL_USER'] ='root'
 app.config ['MYSQL_PASSWORD'] ='NayaPassword'
 app.config['MYSQL_DB'] ='attendance_system'
-app.config['MYSQL_HOST'] = 'local_host'
+app.config['MYSQL_HOST'] = '127.0.0.1'
 
 
 
@@ -115,8 +113,8 @@ def send_email( username, current_time_str):
 
     recipient_email = user['email']
 
-    sender_email = "bhaskar050903@gmail.com"  # Replace with your email
-    sender_password = "wjpnymonyneebwtg"  # Replace with your app-specific password
+    sender_email = "bhaskarsinghlodhi41@gmail.com"  # Replace with your email
+    sender_password = "vfhknjykyxxvgxyu"  # Replace with your app-specific password
 
 
     # Email content
@@ -276,18 +274,18 @@ def view_records():
 @app.route('/home')
 def home():
     names, rolls, times, l = extract_attendance()
-    
-    return render_template('home.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2)
+    scanned_faces = [f'static/scanned_faces/{roll}.jpg' for roll in rolls]
+    return render_template('home.html', names=names, rolls=rolls, times=times, l=l,scanned_faces=scanned_faces, totalreg=totalreg(), datetoday2=datetoday2)
 @app.route('/logout')
 def logout():
     session.clear()  # Clear session data
     return redirect(url_for('login'))  # Redirect to login page
 
-#def save_scanned_face(roll_no, face_image):
+def save_scanned_face(roll_no, face_image):
     # Save the face image with the roll number as the filename
-    #filepath = f'static/scanned_faces/{roll_no}.jpg'
-    #face_image.save(filepath)  # Assuming `face_image` is a PIL or OpenCV image object
-    #return filepath
+    filepath = f'static/scanned_faces/{roll_no}.jpg'
+    face_image.save(filepath)  # Assuming `face_image` is a PIL or OpenCV image object
+    return filepath
 
 
 
@@ -343,7 +341,9 @@ def start():
     cap = cv2.VideoCapture(0)
     ret = True
     start_time = datetime.now()  # Record the session start time
-    
+    os.makedirs('static/scanned_faces', exist_ok=True)
+
+    scanned_faces = []  # Store file paths of scanned faces
 
     while ret:
         ret, frame = cap.read()
@@ -359,14 +359,11 @@ def start():
                  if identified_person not in already_detected:
                      add_attendance(identified_person)
                      already_detected.add(identified_person)
-                     #roll = identified_person.split('_')[-1]  # Assuming roll number is part of the identifier
-                     #relative_path = f'scanned_faces/{roll}.jpg'
-                     #save_path = os.path.join(STATIC_DIR, relative_path)
-                     #cv2.imwrite(save_path, face)
-                     #scanned_faces.append(relative_path)
+                     roll = identified_person.split('_')[-1]  # Assuming roll number is part of the identifier
+                     filepath = f'static/scanned_faces/{roll}.jpg'
+                     cv2.imwrite(filepath, face)
+                     scanned_faces.append(filepath)
 
-                     
-                     
                 # Draw bounding box and label on the frame
                  cv2.rectangle(frame, (x, y), (x + w, y + h), (50, 50, 255), 2)
                  cv2.rectangle(frame, (x, y - 40), (x + w, y), (50, 50, 255), -1)
@@ -377,7 +374,7 @@ def start():
              cv2.imshow('Attendance', imgBackground)
 
             # Check if session time exceeds 1 minute
-             if (datetime.now() - start_time).seconds >= 10:
+             if (datetime.now() - start_time).seconds >= 60:
                  break
 
             # Break on pressing the spacebar
@@ -392,7 +389,7 @@ def start():
 
 
 
-    return render_template('home.html', names=names, rolls=rolls, times=times, l=l,
+    return render_template('home.html', names=names, rolls=rolls, times=times, l=l,scanned_faces=scanned_faces,
                            totalreg=totalreg(), datetoday2=datetoday2)
 
 
@@ -502,10 +499,7 @@ def service_worker():
 def manifest():
     return app.send_static_file('manifest.json')
 
-if __name__ == "__main__":
-    app.run(
-        host='0.0.0.0',   # Bind to all network interfaces
-        port=5000,        # Port number
-        debug=True,       # Debug mode ON (turn OFF in production)
-        use_reloader=False # Prevent double execution
-    )
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
