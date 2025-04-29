@@ -20,8 +20,8 @@ This is a Flask-based web application that uses facial recognition to automate a
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/bhaskar0509/face-recognition-attendance.git
-cd face-recognition-attendance
+git clone https://github.com/bhaskar0509/login-page.git
+cd login-page
 2️⃣ Create Virtual Environment (optional but recommended)
 
 
@@ -37,7 +37,7 @@ Open MySQL and create a new database:
 
 
 CREATE DATABASE attendance_system;
-Import the tables or create manually (students, attendance, users, etc.).
+Import the tables or create manually (students, attendance, user, etc.).
 
 Update your config.py file with:
 
