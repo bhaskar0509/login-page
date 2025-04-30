@@ -1,0 +1,32 @@
+ 1. Install Required Packages
+
+pip install flask flask-mysqldb
+
+2.CREATE DATABASE attendance_system;
+
+3.create below tables
+
+ students Table
+CREATE TABLE students (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    rollno INT NOT NULL,
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ attendance Table
+
+CREATE TABLE attendance (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    roll INT NOT NULL,
+    attendance_date DATE NOT NULL,
+    attendance_time TIME
+);
+ user Table
+CREATE TABLE user (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
