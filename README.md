@@ -44,7 +44,7 @@ Update your config.py file with:
 
 DB_HOST = 'localhost'
 DB_USER = 'root'
-DB_PASSWORD = 'yourpassword'
+DB_PASSWORD = 'yourpassword,that you have created'
 DB_NAME = 'attendance_system'
 5️⃣ Configure Email (SMTP)
 In your config or mail settings, add:
@@ -88,6 +88,5 @@ Admin & teacher roles
 
 Mobile responsive UI
 
-Export attendance to CSV/PDF
 
 
